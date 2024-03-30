@@ -57,24 +57,33 @@ recordBtnCont.addEventListener('click', (e) => {
   }
 })
 
+captureBtn.addEventListener('click', ()=>{
+  const canvas = document.createElement('canvas')
+  canvas.height = video.videoHeight
+  canvas.width = video.videoWidth
+  
+  let tool = canvas.getContext('2d')
+  tool.drawImage(video, 0, 0, canvas.width, canvas.height)
+  
+  let imageURL = canvas.toDataURL()
+  let a = document.createElement('a')
+  a.href = imageURL
+  a.download = "cameraImage.jpg"
+  a.click()
+})
+
 function displayTimer() {
-  
   let totalSeconds = counter
-  
   let hours = Number.parseInt(totalSeconds/3600)
   totalSeconds = totalSeconds % 3600
-  
   let minutes = Number.parseInt(totalSeconds/60)
   totalSeconds = totalSeconds % 60
-  
   let seconds = totalSeconds
   
   hours = (hours < 10) ? `0${hours}` : hours
   minutes = (minutes < 10) ? `0${minutes}` : minutes
   seconds = (seconds < 10) ? `0${seconds}` : seconds
-  
   timer.innerText = `${hours}:${minutes}:${seconds}`
-  
   counter++
 }
 
