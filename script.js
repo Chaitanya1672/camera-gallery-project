@@ -1,13 +1,18 @@
+const { randomUUID } = new ShortUniqueId({ length: 10 });
+
 const video = document.querySelector('video')
 const recordBtnCont = document.querySelector('.record-btn-cont')
 const recordBtn = document.querySelector('.record-btn')
 const captureBtnCont = document.querySelector(".capture-btn-cont")
 const captureBtn = document.querySelector(".capture-btn")
 const timer = document.querySelector('.timer')
+const allFilters = document.querySelectorAll('.filter')
+const filterLayer = document.querySelector('.filter-layer')
 
 let recordFlag = false
 let recorder;
 let chunks = []
+let transparentColor = "transparent";
 
 let counter = 0
 let timerID;
@@ -33,12 +38,23 @@ navigator.mediaDevices.getUserMedia(constraints)
     
     recorder.addEventListener('stop',()=>{
       let blob = new Blob(chunks, { type: 'video' })
-      let videoURL = URL.createObjectURL(blob)
       
-      let a = document.createElement('a')
-      a.href = videoURL
-      a.download = 'stream.mp4'
-      a.click()
+      if(db){
+        let videoID = randomUUID()
+        let dbTransaction = db.transaction("video", "readwrite")
+        let videoStore = dbTransaction.objectStore("video");
+        let videoEntry = {
+          id: `vid-${videoID}`,
+          blobData: blob
+        }
+        videoStore.add(videoEntry)
+      }
+      // let videoURL = URL.createObjectURL(blob)
+      
+      // let a = document.createElement('a')
+      // a.href = videoURL
+      // a.download = 'stream.mp4'
+      // a.click()
     })
   })
   
@@ -64,12 +80,33 @@ captureBtn.addEventListener('click', ()=>{
   
   let tool = canvas.getContext('2d')
   tool.drawImage(video, 0, 0, canvas.width, canvas.height)
+  //filltreing
+  tool.fillStyle = transparentColor
+  tool.fillRect(0, 0, canvas.width, canvas.height)
   
   let imageURL = canvas.toDataURL()
-  let a = document.createElement('a')
-  a.href = imageURL
-  a.download = "cameraImage.jpg"
-  a.click()
+  if(db){
+    let imageID = randomUUID()
+    let dbTransaction = db.transaction("image", "readwrite")
+    let imageStore = dbTransaction.objectStore("image");
+    let imageEntry = {
+      id: `img-${imageID}`,
+      url: imageURL
+    }
+    imageStore.add(imageEntry)
+  }
+  
+  // let a = document.createElement('a')
+  // a.href = imageURL
+  // a.download = "cameraImage.jpg"
+  // a.click()
+})
+
+allFilters.forEach((filterElem)=>{
+  filterElem.addEventListener("click",()=>{
+    transparentColor = getComputedStyle(filterElem).getPropertyValue('background-color')
+    filterLayer.style.backgroundColor = getComputedStyle(filterElem).getPropertyValue('background-color')
+  })
 })
 
 function displayTimer() {
