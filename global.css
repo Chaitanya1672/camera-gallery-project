@@ -156,7 +156,7 @@ video {
 
 @media only screen and (max-width: 400px) {
   .filter-cont {
-    top: -2rem;
+    top: -3rem;
     left: calc(100vw - 56%);
     width: 4rem;
     rotate: 90deg;
@@ -179,8 +179,9 @@ video {
   
   .gallery {
     /* right: 2rem; */
-    left: calc(100vh - 82%);
-    bottom: calc(100vh - 82%);
+    right: 10%;
+    /* left: calc(100vh - 82%); */
+    bottom: 18%;
   }
   
   .material-icons {
