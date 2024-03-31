@@ -168,7 +168,7 @@ video {
   .action-cont {
     height: 10rem;
     width: 4rem;
-    top: calc((100vh - 32%));
+    top: calc((100vh - 34%));
     right: calc(100vw - 60%);
     rotate: 90deg;
   }
@@ -178,8 +178,9 @@ video {
   }
   
   .gallery {
-    right: 1rem;
-    bottom: calc(100vh - 88%);
+    /* right: 2rem; */
+    left: calc(100vh - 82%);
+    bottom: calc(100vh - 82%);
   }
   
   .material-icons {
