@@ -166,9 +166,9 @@ video {
   }
   
   .action-cont {
-    height: 11rem;
+    height: 10rem;
     width: 4rem;
-    top: calc((100vh - 30%));
+    top: calc((100vh - 32%));
     right: calc(100vw - 60%);
     rotate: 90deg;
   }
