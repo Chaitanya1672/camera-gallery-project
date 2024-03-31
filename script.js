@@ -49,12 +49,6 @@ navigator.mediaDevices.getUserMedia(constraints)
         }
         videoStore.add(videoEntry)
       }
-      // let videoURL = URL.createObjectURL(blob)
-      
-      // let a = document.createElement('a')
-      // a.href = videoURL
-      // a.download = 'stream.mp4'
-      // a.click()
     })
   })
   
@@ -73,7 +67,9 @@ recordBtnCont.addEventListener('click', (e) => {
   }
 })
 
-captureBtn.addEventListener('click', ()=>{
+captureBtnCont.addEventListener('click', ()=>{
+  captureBtn.classList.add('scale-capture')
+  
   const canvas = document.createElement('canvas')
   canvas.height = video.videoHeight
   canvas.width = video.videoWidth
@@ -95,11 +91,9 @@ captureBtn.addEventListener('click', ()=>{
     }
     imageStore.add(imageEntry)
   }
-  
-  // let a = document.createElement('a')
-  // a.href = imageURL
-  // a.download = "cameraImage.jpg"
-  // a.click()
+  setTimeout(()=>{
+    captureBtn.classList.remove('scale-capture')
+  }, 500)
 })
 
 allFilters.forEach((filterElem)=>{
