@@ -147,9 +147,46 @@ video {
 .gallery {
   position: absolute;
   right: 6rem;
-  bottom: 7rem;
+  bottom: 10rem;
   z-index: 2;
 }
 .gallery:hover {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 400px) {
+  .filter-cont {
+    top: -2rem;
+    left: calc(100vw - 56%);
+    width: 4rem;
+    rotate: 90deg;
+  }
+  .filter {
+    rotate: 270deg;
+  }
+  
+  .action-cont {
+    height: 11rem;
+    width: 4rem;
+    top: calc((100vh - 30%));
+    right: calc(100vw - 60%);
+    rotate: 90deg;
+  }
+  
+  .action-cont > * {
+    height: 4rem;
+  }
+  
+  .gallery {
+    right: 1rem;
+    bottom: calc(100vh - 88%);
+  }
+  
+  .material-icons {
+    font-size: 2.5rem;
+  }
+  .timer-cont {
+    bottom: 9rem;
+    left: 8rem;
+  }
 }
